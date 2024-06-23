@@ -1,8 +1,13 @@
 import './posts.scss'
-
+import { useNavigate, Link } from 'react-router-dom';
 
 const PostsList = ({ posts, images }) => {
 
+    const navigate = useNavigate();
+
+    const abstract = (post) => {
+        return post.split(' ').slice(0, 50).join(' ')
+    }
 
     return (
         <div>
@@ -13,7 +18,10 @@ const PostsList = ({ posts, images }) => {
                         return (
                             <li key={`post-${index}`} >
                                 <h3>{post.title}</h3>
-                                <p>{post.content}</p>
+                                <p>
+                                    {abstract(post.content)}
+                                    <Link to={`/posts/${post.slug}`}><strong>...Read more</strong></Link>
+                                </p>
                                 <div>
                                     <strong>Categoria:</strong>{post.category.name}
                                 </div>

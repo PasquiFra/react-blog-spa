@@ -1,7 +1,7 @@
 import PostsList from "../components/Posts/PostsList";
 
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { Children, useEffect, useState } from 'react'
 
 
 const PostsListPage = () => {
@@ -48,7 +48,7 @@ const PostsListPage = () => {
     }, [posts])
 
     return (
-        <PostsList posts={posts} images={images} />
+        <PostsList posts={posts} images={images}></PostsList>
     )
 }
 
