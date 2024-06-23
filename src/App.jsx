@@ -31,14 +31,6 @@ function App() {
         </Routes>
       </BrowserRouter>
 
-      {/* <Header />
-      <main className='container'>
-        <Form setError={(error) => setError(error)} fetchPosts={() => fetchPosts()}></Form>
-        <PostsList setError={(error) => setError(error)} posts={posts} images={images} />
-      </main>
-      <Footer />
-      <Alert error={error}></Alert> */}
-
     </>
   )
 }

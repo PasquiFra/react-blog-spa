@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import './formStyle.scss'
+import { useNavigate } from 'react-router-dom';
 
-const Form = ({ setError, fetchPosts }) => {
+const Form = () => {
+    const navigate = useNavigate();
+    const [error, setError] = useState(null);
+    const [posts, setPosts] = useState([]);
 
     // Setto l'oggetto data del form per raccogliere i vari campi input
     const setupFormData = {
@@ -86,6 +90,20 @@ const Form = ({ setError, fetchPosts }) => {
                 ...current,
                 [name]: value
             }));
+        }
+    }
+
+    const fetchPosts = async () => {
+
+        const postsEndpoint = 'http://127.0.0.1:3000/posts'
+        try {
+            const fetchedPosts = (await axios.get(postsEndpoint)).data.data
+
+            setPosts(fetchedPosts)
+            navigate('/posts')
+
+        } catch (error) {
+            setError(error.message)
         }
     }
 
