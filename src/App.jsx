@@ -21,10 +21,9 @@ function App() {
 
             <Route index element={<HomePage />} />
 
-            <Route path="posts" element={<PostsListPage />}>
-              <Route path=":slug">
-                <Route index element={<ShowPostPage />} />
-              </Route>
+            <Route path="posts">
+              <Route index element={<PostsListPage />} />
+              <Route path=":slug" element={<ShowPostPage />} />
             </Route>
 
             <Route path="*" element={<NotFoundPage />} />

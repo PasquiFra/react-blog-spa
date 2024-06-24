@@ -6,17 +6,37 @@ const ShowPostPage = () => {
 
     const { slug } = useParams();
 
-    const [post, setPost] = useState([]);
+    const defaultPost = {
+        title: "",
+        content: "",
+        image: null,
+        category: '',
+        tags: [],
+        published: false,
+        userId: 1
+    }
+
+    const [post, setPost] = useState(defaultPost);
     const [image, setImage] = useState({});
     const [error, setError] = useState(null);
 
     const fetchPost = async () => {
         const postEndpoint = `http://127.0.0.1:3000/posts/${slug}`
         try {
-            const fetchedPost = (await axios.get(postEndpoint)).data.data
-            if (fetchedPost) {
-                setPosts(fetchedPost)
+            console.log("entrato")
+            const post = (await axios.get(postEndpoint)).data
+            const fetchedPost = {
+                title: post.title,
+                content: post.content,
+                image: post.image,
+                category: post.category,
+                tags: post.tags,
+                published: post.published,
+                userId: post.userId
             }
+            setPost(fetchedPost)
+
+            console.log(post)
         } catch (error) {
             setError(error.message)
         }
@@ -38,8 +58,15 @@ const ShowPostPage = () => {
 
     useEffect(() => {
         fetchPost()
-        fetchPostImage(post.image, post.slug)
-    }, [slug])
+    }, [])
+
+    useEffect(() => {
+
+        if (post.image) {
+            fetchPostImage(post.image, post.slug);
+        }
+
+    }, [post])
 
     return (
         <div>
@@ -48,7 +75,8 @@ const ShowPostPage = () => {
                 {post.content}
             </p>
             <div>
-                <strong>Categoria:</strong>{post.category.name}
+                <strong>Categoria:</strong>
+                {post.category.name}
             </div>
             <div>
                 <strong>Tags:</strong>
